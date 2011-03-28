@@ -1,0 +1,100 @@
+#!/bin/bash
+# init script for Hive Thrift Interface.
+#
+# chkconfig: 2345 90 10
+# description: Hive Thrift Interface
+
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Paths to configuration, binaries, etc
+HIVE_BIN=/usr/bin/hive
+HIVE_ARGS="--service hiveserver"
+HIVE_LOG=/var/log/hive-thrift.log
+HIVE_USER="hdfs"
+ANT_LIB=/usr/share/java
+
+if [ ! -f $HIVE_BIN ]; then
+  echo "File not found: $HIVE_BIN"
+  exit 1
+fi
+
+# pid file for /sbin/runuser
+pidfile=${PIDFILE-/var/run/hive-thrift.pid}
+# pid file for the java child process.
+pidfile_java=${PIDFILE_JAVA-/var/run/hive-thrift-java.pid}
+RETVAL=0
+
+start() {
+  # check to see if hive is already running by looking at the pid file and grepping
+  # the process table.
+  if [ -f $pidfile_java ] && checkpid `cat $pidfile_java`; then
+    echo "hive-thrift is already running"
+    exit 0
+  fi
+  echo -n $"Starting $prog: "
+  /sbin/runuser -s /bin/sh -c "$HIVE_BIN $HIVE_ARGS" $HIVE_USER >> $HIVE_LOG 2>&1 &
+  runuser_pid=$!
+  echo $runuser_pid > $pidfile
+  # sleep so the process can make its way to the process table.
+  usleep 500000
+  # get the child Java process that /usr/bin/hive started.
+  java_pid=$(ps -eo pid,ppid,fname | awk "{ if (\$2 == $runuser_pid && \$3 ~ /java/) { print \$1 } }")
+  echo $java_pid > $pidfile_java
+  disown -ar
+  # print status information.
+  ps aux | grep $java_pid &> /dev/null && echo_success || echo_failure
+  RETVAL=$?
+  echo
+  return $RETVAL
+}
+
+stop() {
+  # check if the process is already stopped by seeing if the pid file exists.
+  if [ ! -f $pidfile_java ]; then
+    echo "hive-thrift is already stopped"
+    exit 0
+  fi
+  echo -n $"Stopping $prog: "
+  if kill `cat $pidfile` && kill `cat $pidfile_java`; then
+    RETVAL=0
+    echo_success
+  else
+    RETVAL=1
+    echo_failure
+  fi
+  echo
+  [ $RETVAL = 0 ] && rm -f ${pidfile} ${pidfile_java}
+}
+
+status_fn() {
+  if [ -f $pidfile_java ] && checkpid `cat $pidfile_java`; then
+    echo "hive-thrift is running"
+    exit 0
+  else
+    echo "hive-thrift is stopped"
+    exit 1
+  fi
+}
+
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  status)
+    status_fn
+    ;;
+  restart)
+    stop
+    start
+    ;;
+  *)
+    echo $"Usage: $prog {start|stop|restart|status}"
+    RETVAL=3
+esac
+
+exit $RETVAL
