@@ -35,7 +35,9 @@ To start you'll want to adjust
 
 = USAGE:
 
-Include the mongodb recipe to install MongoDB and get 'sane' default settings.
+Add the default recipe to any host you only want hadoop libs and config on.
+
+Add any other if you want a node to have a specific function.
 
 == TODO:
 
