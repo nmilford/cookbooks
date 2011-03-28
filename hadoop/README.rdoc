@@ -20,7 +20,7 @@ I built this in a CentOS 5.5 environment.  Results may vary elsewhere.
 
 = ATTRIBUTES:
 
-See the attributes directory.  All of the basic settings you might use to tweak your hadoop cluster ar avaliable there.
+See the attributes directory.  All of the basic settings you might use to tweak your hadoop cluster are avaliable there.
 
 To start you'll want to adjust
 
