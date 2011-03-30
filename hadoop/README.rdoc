@@ -61,11 +61,13 @@ Add any other if you want a node to have a specific function.
 
 * Deploy Hive metastore backup scripts.
 
-* Oozie cookbook.
+* Balancer setup.
 
-* Pig cookbook.
+* Oozie recipe.
 
-* Hue cookbook.
+* Pig recipe.
+
+* Hue recipe.
 
 * Add array to populate dfs.hosts.exclude file.
 
