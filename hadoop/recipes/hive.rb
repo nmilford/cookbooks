@@ -24,4 +24,12 @@ template "/etc/hive/conf/hive-site.xml" do
   source "hive-site.xml.erb"
 end
 
-
+# Installs the MySQL Java driver so Hive can talk to the MySQL-backed metastore.
+bash "getMysqlConnectorJ" do
+user "root"
+  cwd "/tmp"
+  code <<-EOH
+  curl http://mysql.he.net/Downloads/Connector-J/mysql-connector-java-5.1.10.tar.gz | tar zxv mysql-connector-java-5.1.10/mysql-connector-java-5.1.10-bin.jar
+  cp mysql-connector-java-5.1.10/mysql-connector-java-5.1.10-bin.jar /usr/lib/hive/lib/
+  EOH
+end

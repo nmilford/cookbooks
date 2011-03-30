@@ -63,6 +63,8 @@ Add any other if you want a node to have a specific function.
 
 * Oozie cookbook.
 
+* Pig cookbook.
+
 * Add array to populate dfs.hosts.exclude file.
 
 = LICENSE & AUTHOR:

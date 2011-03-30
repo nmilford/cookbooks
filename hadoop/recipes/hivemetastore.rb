@@ -32,7 +32,7 @@ bash "setupDatabase" do
   code <<-EOH
   service mysqld start
   mysqladmin -u root password 'p4ssw0rd'
-  mysqladmin -u root -h ob1006153.test.outbrain.com password 'p4ssw0rd'
+  mysqladmin -u root -h $(hostname) password 'p4ssw0rd'
   mysql -h localhost -u root -pout4brain -e"CREATE USER 'hadoop'@'localhost' IDENTIFIED BY 'hadoop'; GRANT ALL PRIVILEGES ON *.* TO 'hadoop'@'localhost' WITH GRANT OPTION;"
   mysql -h localhost -u root -pout4brain -e"CREATE USER 'hadoop'@'$(hostname)' IDENTIFIED BY 'hadoop'; GRANT ALL PRIVILEGES ON *.* TO 'hadoop'@'$(hostname)' WITH GRANT OPTION;"
   exit 0

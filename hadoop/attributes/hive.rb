@@ -15,4 +15,4 @@
 # Non config file stuff should go here.
 
 # Pin the Hive version to install.
-default[:Hive][:Version] = "0.5.0+32-2"
+default[:Hive][:Version] = "0.7.0+11-2"

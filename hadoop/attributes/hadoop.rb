@@ -15,4 +15,4 @@
 # Non config file stuff should go here.
 
 # Pin the Hadoop version to install.
-default[:Hadoop][:Version] = "0.20.2+737-1"
+default[:Hadoop][:Version] = "0.20.2+887-1"
