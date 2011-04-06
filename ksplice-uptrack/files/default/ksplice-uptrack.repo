@@ -1,0 +1,6 @@
+[ksplice-uptrack]
+name=Ksplice Uptrack for RHEL
+baseurl=http://www.ksplice.com/yum/uptrack/rhel/$releasever/$basearch/
+enabled=1
+gpgcheck=1
+gpgkey=https://www.ksplice.com/yum/RPM-GPG-KEY-ksplice

@@ -1,0 +1,15 @@
+= DESCRIPTION:
+
+Installs Ksplices Uptrack
+
+see: http://www.ksplice.com/
+
+= REQUIREMENTS:
+
+I built this in a CentOS 5.5 environment.  Results may vary elsewhere.
+
+= ATTRIBUTES:
+
+To start you'll want to adjust
+
+* attributes/ksplice-uptrack.rb: default[:uptrack][:accesskey]

@@ -1,0 +1,29 @@
+{
+  "description": "Installs/Configures ksplice-uptrack",
+  "recipes": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "version": "0.0.1",
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES:\n\n= USAGE:\n\n",
+  "name": "ksplice-uptrack",
+  "providing": {
+  },
+  "attributes": {
+  },
+  "maintainer": "Outbrain, Inc.",
+  "replacing": {
+  },
+  "license": "All rights reserved",
+  "maintainer_email": "nathan@outbrain.com",
+  "groupings": {
+  },
+  "dependencies": {
+  },
+  "platforms": {
+  },
+  "recommendations": {
+  }
+}
