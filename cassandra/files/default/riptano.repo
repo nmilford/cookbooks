@@ -1,0 +1,6 @@
+[riptano]
+name=Riptano Repo for Enterprise Linux - $basearch
+baseurl=http://rpm.riptano.com/EL/5
+failovermethod=priority
+enabled=1
+gpgcheck=0

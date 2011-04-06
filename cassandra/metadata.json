@@ -1,0 +1,30 @@
+{
+  "description": "Installs/Configures ob-cassandra",
+  "recipes": {
+    "ob-hadoop::default": "Installs Cassandra."
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "version": "0.0.2",
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES:\n\n= USAGE:\n\n",
+  "name": "ob-cassandra",
+  "providing": {
+  },
+  "attributes": {
+  },
+  "maintainer": "Outbrain, Inc.",
+  "replacing": {
+  },
+  "license": "All rights reserved",
+  "maintainer_email": "nathan@outbrain.com",
+  "groupings": {
+  },
+  "dependencies": {
+  },
+  "platforms": {
+  },
+  "recommendations": {
+  }
+}
