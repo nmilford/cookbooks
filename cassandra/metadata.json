@@ -7,7 +7,7 @@
   },
   "conflicting": {
   },
-  "version": "0.0.2",
+  "version": "0.1.0",
   "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES:\n\n= USAGE:\n\n",
   "name": "ob-cassandra",
   "providing": {

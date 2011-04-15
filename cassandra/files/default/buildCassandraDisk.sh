@@ -13,20 +13,19 @@
 # limitations under the License.
 
 #!/bin/bash
+declare -a disks
+disks=( $(fdisk -l | grep Disk | cut -d":" -f1 | sed 's/Disk //g') )
 
-disk=/dev/sdb
-mountPoint=$*
 
 function addToFstab() {
 
-   echo "${disk}1          $mountPoint                ext3    defaults        1 2" >> /etc/fstab
+   echo "LABEL=/data/${disk:7}           /data/${disk:7}                 ext3    defaults        1 2" >> /etc/fstab
 
 }
 
 function buildMountPoint() {
 
-   mkdir -p $mountPoint
-
+   mkdir -p /data/${disk:7}
 }
 
 function buildPartition() {
@@ -44,26 +43,28 @@ EOF
 
 function formatVolume() {
 
-   mkfs.ext3 -F ${disk}1
+   mkfs.ext3 -F -L /data/${disk:7} ${disk}1
 
 }
 
 function mountVolume() {
 
-   mount $mountPoint
+   mount /data/${disk:7} 
 
 }
 
-if [ -z $mountPoint ]; then
-   echo "please specify a mount point"
-   exit 12;
-fi
+for disk in "${disks[@]}"; do
+   if [ $disk = "/dev/sda" ]; then
+      echo "skipping $disk"
+   elif [ -d /data/${disk:7} ]; then
+      echo "skipping $disk"
+   else
+      buildMountPoint
+      buildPartition
+      formatVolume
+      addToFstab
+      mountVolume 
+   fi
+done
 
-if [ -b /dev/sdb ] && [ ! -b /dev/sdb1 ] && [ ! -d $mountPoint ]; then
-  buildMountPoint
-  buildPartition
-  formatVolume
-  addToFstab
-  mountVolume 
-fi
 

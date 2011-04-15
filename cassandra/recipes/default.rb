@@ -59,9 +59,36 @@ cookbook_file "/tmp/buildCassandraDisk.sh" do
 end
 
 execute "buildCassandraDisk" do
-  command "/tmp/buildCassandraDisk.sh #{node[:Cassandra][:data_file_directories]}"
+  command "/tmp/buildCassandraDisk.sh"
   action :run
 end
+
+if File.exist?("/data/f")
+   node.set['Cassandra']['data_file_directories'] = [ "/data/a/", "/data/b/", "/data/c/", "/data/d/", "/data/e/", "/data/f/" ]
+elsif File.exist?("/data/e")
+   node.set['Cassandra']['data_file_directories'] = [ "/data/a/", "/data/b/", "/data/c/", "/data/d/", "/data/e/" ]
+elsif File.exist?("/data/d")
+   node.set['Cassandra']['data_file_directories'] = [ "/data/a/", "/data/b/", "/data/c/", "/data/d/" ]
+elsif File.exist?("/data/c")
+   node.set['Cassandra']['data_file_directories'] = [ "/data/a/", "/data/b/", "/data/c/" ]
+elsif File.exist?("/data/b")
+   node.set['Cassandra']['data_file_directories'] = [ "/data/a/", "/data/b/" ]
+elsif File.exist?("/data/a")
+   node.set['Cassandra']['data_file_directories'] = [ "/data/a/" ]
+else
+   node.set['Cassandra']['data_file_directories'] = [ "/data/a/" ]
+end
+
+node[:Cassandra][:data_file_directories].each do |dataDir|
+  directory dataDir do
+    owner "cassandra"
+    group "cassandra"
+    mode "0755"
+    recursive true
+    action :create
+  end
+end
+
 
 service "cassandra" do
   supports :status => true, :start => true, :stop => true, :restart => true, :reload => true
@@ -91,13 +118,6 @@ template "/etc/cassandra/conf/cassandra.yaml" do
   notifies :restart, resources(:service => "cassandra")
 end
 
-directory node[:Cassandra][:data_file_directories] do
-  owner "cassandra"
-  group "cassandra"
-  mode "0755"
-  recursive true
-  action :create
-end
 
 directory node[:Cassandra][:commitlog_directory] do
   owner "cassandra"
