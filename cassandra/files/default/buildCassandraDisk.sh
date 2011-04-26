@@ -30,14 +30,7 @@ function buildMountPoint() {
 
 function buildPartition() {
 
-   fdisk $disk <<EOF
-n
-p
-1
-
-
-w
-EOF
+   parted $disk --script -- mkpart primary 0 -1
 
 }
 
