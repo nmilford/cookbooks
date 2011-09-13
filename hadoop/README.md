@@ -83,7 +83,7 @@ TODO
 LICENSE & AUTHOR
 ================
 
-Author: [Nathan Milford](nathan@outbrain.com)
+Author: Nathan Milford <nathan@outbrain.com>
 
 Copyright: &copy; 2011, Outbrain, Inc.
 
