@@ -1,7 +1,7 @@
-maintainer       "Outbrain, Inc."
-maintainer_email "nathan@outbrain.com"
+maintainer       "Nathan Milford"
+maintainer_email "nathan@milford.io"
 license          "All rights reserved"
-description      "Installs/Configures cassandra"
+description      "Installs/Configures multiple Apache Cassandra clusters"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
-version          "0.1.0"
-recipe           "cassandra::default", "Installs Cassandra."
+version          "1.0.7"
+recipe           "cassandra::default", "Installs/confures Apache Cassandra."
