@@ -1,4 +1,4 @@
-# Copyright 2011, Nathan Milford
+# Copyright 2012, Timothy Smith - Webtrends Inc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,17 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#Exit the recipe if system's manufacturer as detected by ohai does not match "Dell"
-if !node[:dmi][:system][:manufacturer].include? 'Dell' then
-	return
-end
+# You will need to host the megacli RPM somewhere and set this attribute
+default[:delltools][:raid][:megacli_url] = ""
+default[:delltools][:raid][:megacli_packagename] = "MegaCli-8.04.07-1.noarch.rpm"
 
-# Most Dell stuff on CentOS / Redhat needs these.
-%w{procmail compat-libstdc++-33}.each do |dellpkg|
-		package dellpkg
-end
-
-# You'll probably want ipmitool for interacting with the server
-package "ipmitool" do
-    action :install
-end
+default[:delltools][:raid][:sas2ircu_url] = "http://www.supermicro.com/support/faqs/data_lib/FAQ_9633_SAS2IRCU_Phase_5.0-5.00.00.00.zip"
+default[:delltools][:raid][:sas2ircu_packagename] = "FAQ_9633_SAS2IRCU_Phase_5.0-5.00.00.00.zip"
