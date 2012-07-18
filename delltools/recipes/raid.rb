@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # Install utilities / monitors for the LSI SAS 9260
-if node[:kernel][:modules].include? 'megaraid_sas' then
+if node[:kernel][:modules].include? 'megaraid_sas'
 
 	# Fetch the Megaraid RPM
 	remote_file "#{Chef::Config[:file_cache_path]}/#{node[:delltools][:raid][:megacli_packagename]}" do
@@ -38,16 +38,12 @@ if node[:kernel][:modules].include? 'megaraid_sas' then
 		end
 		
 		nagios_nrpecheck "dell_raid_check" do
-			command "#{node['nagios']['plugin_dir']}/check_megaraid_sas"
+			command "sudo #{node['nagios']['plugin_dir']}/check_megaraid_sas"
 			action :add
 		end
 	end
-	
-end
-
-
 # Install utilities / monitors for the PERC H200 aka LSI SAS 2008
-if node[:kernel][:modules].include? 'mpt2sas' then
+elsif node[:kernel][:modules].include? 'mpt2sas' then
 	
 	# Download SAS-2 Integrated RAID Configuration Utility
 	remote_file "#{Chef::Config[:file_cache_path]}/#{node[:delltools][:raid][:sas2ircu_packagename]}" do
@@ -80,7 +76,7 @@ if node[:kernel][:modules].include? 'mpt2sas' then
 		end
 		
 		nagios_nrpecheck "dell_raid_check" do
-			command "#{node['nagios']['plugin_dir']}/check_sas2ircu"
+			command "sudo #{node['nagios']['plugin_dir']}/check_sas2ircu"
 			action :add
 		end
 	end
